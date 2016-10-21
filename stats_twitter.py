@@ -59,7 +59,7 @@ labels = [i.get_label() for i in legend_patches]
 
 df.Followers.plot(kind='bar', color=df.Colour, fontsize=7)
 plt.ylabel('Followers')
-plt.legend(legend_patches, labels)
+plt.legend(legend_patches, labels, loc=2)
 
 plt.show()
 
