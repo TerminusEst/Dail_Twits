@@ -1,7 +1,7 @@
 # Dail_Twits
 Plotting the twitter followers of Irish TD's
 
-![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/most_followed.png)
-![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/followers.png)
-![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/tweets.png)
-![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/boxplot.png)
+![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/figs/most_followed.png)
+![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/figs/followers.png)
+![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/figs/tweets.png)
+![alt tag](https://github.com/neal-o-r/Dail_Twits/blob/master/figs/boxplot.png)
