@@ -5,9 +5,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import datetime as dt
 
+
 def plot_bar(df, column):
         
-        df = df.sort([column])
+        df = df.sort_values(by=column)
 
         legend_patches = []
 
@@ -31,12 +32,11 @@ df = df[df.Followers != 0]
 df = df[df.Handle != 'None']
 
 
-
 plot_bar(df, 'Followers')
 plot_bar(df, 'Tweets')
 
 df['Created'] = pd.to_datetime([i for i in df.Created], yearfirst=True)
-df = df.sort(['Created'])
+df = df.sort_values(by='Created')
 
 plt.plot(df.Created, range(len(df)))
 
@@ -52,5 +52,4 @@ df.boxplot(column='Followers', by='Party')
 plt.ylim([0,30000])
 plt.ylabel('Followers')
 plt.show()
-
 

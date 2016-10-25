@@ -41,5 +41,5 @@ none_series = pd.Series({'Followers': 0, 'Tweets':0, 'Created':0})
 df[['Followers', 'Tweets', 'Created']] = df.Handle.apply(lambda x: stats(x) if x != None else none_series)
 	
 
-#df.to_csv('twit_stats.csv')
+df.to_csv('twit_stats.csv')
 
