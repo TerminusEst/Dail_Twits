@@ -1,97 +1,56 @@
-# -*- coding: utf-8 -*-
-import urllib2
-import HTMLParser
-pars = HTMLParser.HTMLParser()
-
-"""
-def GetTwitterFollowers(html):
-	for i in html3:
-		if 'data-nav="followers"' in i:
-			followers = i.split('title="')[1].split(" F")[0]
-			followers = int(followers.replace(",", ""))
-
-			return followers
-
-	return 0
+import urllib.request as urlreq
+import html
 
 
 url = "https://www.kildarestreet.com/tds/"
-response = urllib2.urlopen(url)
-html = response.readlines()
+response = urlreq.urlopen(url)
+webpage = response.readlines()
 
-names, parties, follower_numb = [], [], []
-twits = []
-for index, value in enumerate(html):
+names, parties, twits = [], [], []
+for index, value in enumerate(webpage):
+
+	value = html.unescape(value.decode('utf-8'))
 	try:
 		if "/td/" in value:
-			name = pars.unescape(value.split('"')[-1][1:].split("<")[0])
+
+			name = value.split('"')[-1][1:].split("<")[0]
+
+			names.append(name)                
 
 			address = value.split('"')[3]
-			party = html[index + 1].split(">")[1].split("<")[0]
+			next_line = html.unescape(webpage[index + 1].decode('utf-8'))
+			party = next_line.split(">")[1].split("<")[0]    
+			
+			parties.append(party)	
 
 			url2 = "https://www.kildarestreet.com" + address
-			response2 = urllib2.urlopen(url2)
-			html2 = response2.readlines()
-		
+			response2 = urlreq.urlopen(url2)
+			webpage2 = response2.readlines()
+
 			twit_switch = False
-			for j in html2:
-				if "http://twitter" in j:
+			for line_feed in webpage2:
+				line_feed = html.unescape(line_feed.decode('utf-8'))				
 
-					twitter_add = j.split('http://twitter.com/')[1].split('"')[0]
+				if "http://twitter" in line_feed:
+
+					twitter_add = line_feed.split('http://twitter.com/')[1].split('"')[0]
 					twit_switch = True
-
-					response3 = urllib2.urlopen("https://twitter.com/" + twitter_add)
-					html3 = response3.readlines()
-					followers = GetTwitterFollowers(html3)
 					break
-
+				
 			if twit_switch == False:
-				followers = 0
-			print name, party, followers
+				twitter_add = None
 
+			twits.append(twitter_add)
 
-			names.append(name)
-			parties.append(party)
-			follower_numb.append(followers)
-
+	
 	except:
 		continue
-"""
 
-a = {"FG": "Fine Gael", "LAB": "Labour Party", "FF": "Fianna Fáil", "SF":"Sinn Féin", "AAA":"Ant-Austerity Alliance", "CC":"Ceann Comhairle", "GRN":"Green Party", "IND":"Independents", "PBP":"People Before Profits", "SD":"Social Democrats", "ULP":"United Labour Party", "WUA":"Workers and Unemployed Action"}
+f = open('twits.csv', 'w')
 
-b = {"FG": "#6699FF", "LAB": "#CC0000", "FF": "#66BB66", "SF":"#008800", "AAA":"#E5E500", "CC":"yellow", "GRN":"#99CC33", "IND":"Black", "PBP":"#E5E500", "SD":"#752F8B", "ULP":"#CC0000", "WUA":"#D73D3D"}
+for i in range(len(names)):
+    f.write(names[i] +','+parties[i]+','+str(twits[i])+'\n')
 
-
-follower_numb2, names2, parties2 = zip(*sorted(zip(follower_numb, names, parties)))
-
-
-x_axis = arange(len(follower_numb2))
-
-width = 1
-
-clf()
-
-ax = subplot(111)
-
-barlist = bar(x_axis, follower_numb2, width, edgecolor = "k", linewidth = 1, log= False)
-
-for index, value in enumerate(barlist):
-	barlist[index].set_color(b[parties2[index]])
-
-xticks(x_axis + 0.5)
-ax.set_xticklabels(names2, rotation = 90)
-
-show()
-
-
-
-
-
-
-
-
-
-
+f.close()
 
 
